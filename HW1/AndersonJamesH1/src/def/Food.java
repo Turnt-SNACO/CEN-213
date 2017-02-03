@@ -18,9 +18,12 @@ public class Food extends Item{
 	public int getNutrition(){
 		return nutrition;
 	}
+	private int getNetWeight(){
+		return(quantity*super.getWeight());
+	}
 	//Returns a thorough description of all item attributes
 	public String examine(){
-		return ("This is a(n) "+super.getName()+" with weight "+super.getWeight()+" and nutrition value "+ nutrition+". There are "+quantity+" in your inventory.");
+		return ("This is a(n) "+super.getName()+" with weight "+super.getWeight()+" and nutrition value "+ nutrition+". There are "+quantity+" in your inventory with net weight "+getNetWeight()+".");
 	}
 
 }
