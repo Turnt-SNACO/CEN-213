@@ -1,17 +1,23 @@
 package src;
 
 public class Flower {
-	private String name, color;
-	//Constructor
-	public Flower(String name, String color){
-		this.name=name;		this.color=color;
+	//Creates empty string for name 
+	private String name;
+	//Default constructor
+	public Flower(){}
+	//COnstructor with name arg
+	public Flower(String name){
+		this.name=name;
 	}
-	//Returns name as a string
+	//Set the name
+	public void setName(String name) {
+		this.name = name;
+	}
+	/*Returns name as a string
+	 * method gets name of the flower
+	 * @return the name of the flower
+	 */
 	public String getName() {
 		return name;
 	}
-	//Returns color as a string
-	public String getColor() {
-		return color;
-	}	
 }
