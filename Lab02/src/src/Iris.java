@@ -4,7 +4,7 @@ public class Iris extends Flower{
 	//String for the color
 	private String color;
 	//Constructor
-	Iris(){
+	public Iris(){
 		super("Iris");		color="Purple";
 	}
 	/*Returns color as a string

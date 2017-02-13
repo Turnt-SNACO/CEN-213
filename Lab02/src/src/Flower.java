@@ -5,11 +5,14 @@ public class Flower {
 	private String name;
 	//Default constructor
 	public Flower(){}
-	//COnstructor with name arg
+	//Constructor with name arg
 	public Flower(String name){
 		this.name=name;
 	}
-	//Set the name
+	/*Sets name as
+	 * method sets name of the flower
+	 * @param name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
