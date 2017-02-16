@@ -14,7 +14,7 @@ public class Main {
 		//call next guess
 		return rootRecursion(initial, nextGuess);
 	}
-	//Test
+	//Test  Max: 54912
 	public static void main(String[] args) {
 		System.out.println(root(54912));
 	}
