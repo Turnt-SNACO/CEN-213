@@ -1,6 +1,9 @@
 
 public class Sqrt {
 	Sqrt(){}
+	public double root(double initial){
+		return rootRecursion(initial,initial);
+	}
 	private double rootRecursion(double initial, double Guess){
 		double guess=Guess/2;
 		// exact answer					//acceptable error margin
