@@ -1,4 +1,3 @@
-
 public class Node {
 	private Node previous,next;
 	private int ID;

@@ -5,10 +5,12 @@ public class Main {
 		Node ace = new Node(1, "ace");
 		Node xylophone = new Node(2, "xylophone");
 		Node bubblegum = new Node(3, "bubblegum");
-		l.insertAlphabetically(apple);
-		l.insertAlphabetically(xylophone);
-		l.insertAlphabetically(bubblegum);
+		l.add(apple);
+		l.add(xylophone);
+		l.add(bubblegum);
+		l.add(ace);
 		l.insertAlphabetically(ace);
 		System.out.println(l.printForward());
+		System.out.println(l.printReverse());
 	}
 }
