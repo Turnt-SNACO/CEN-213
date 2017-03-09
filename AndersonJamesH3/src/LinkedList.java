@@ -5,6 +5,7 @@ public class LinkedList {
 	private int size=0;
 	public LinkedList(){}
 	
+	//appends a node to the end of the list
 	public void addToEnd(Node node) {
     	if (origin==null){  
     		origin=node;
@@ -20,36 +21,41 @@ public class LinkedList {
     	}
     	size++;
     }
+	
+	//sets the next node of the node behind the current node to be equal to the next node of the current
+	//effectively deleting from the list
 	public void deleteNode(Node node){
-		if (findNode(node)!=null){
-			//sets the next node of the node behind the current node to be equal to the next node of the current
-			//effectively deleting from the list
+		if (node!=origin)
 			node.getPrevious().setNext(node.getNext());
-			Node current=node;
-			//Goes through the list and shifts ID values back one to accommodate for removed node
-			while(current.getNext()!=null){
-
-    			current=current.getNext();
-    		}
-			//makes sure the last link is shifted back as well
-		}
+		else
+			origin=node.getNext();
+		if (node!=end)
+			node.getNext().setPrevious(node.getPrevious());
+		else
+			end=node.getPrevious();
+		size--;
 	}
-	public Node findNode(Node node){
-        Node current = origin;
-    	while(current.getNext()!=null){
-    		if (current==node)
+	
+	//searches for nod ebased on content and returns the node
+	public Node findNode(String content){
+		Node current = origin;
+		while(current.getNext()!=null){
+    		if (current.getContent()==content)
     			return current;
     		else
     			current=current.getNext();
-    	}
-    	if (current==node)
-    		return current;
-    	return null;	
-    }
+		}
+		return null;
+	}
+	
+	//effectively deletes the list because all add or insert functions have a base case
+	//checking if origin is null or end is null
 	public void deleteList(){
 		origin=null;
 		end=null;
 	}
+	
+	//iterates forward through the list and returns a string that it comma delimited containing the content of each node.
 	public String printForward(){
 		String list="";
 		Node current=origin;
@@ -60,6 +66,8 @@ public class LinkedList {
 		list+=current.getContent();
 		return list;
 	}
+	
+	//iterates backwards through the list and returns a string that it comma delimited containing the content of each node.
 	public String printReverse(){
 		String list="";
 		Node current=end;
@@ -70,10 +78,13 @@ public class LinkedList {
 		list+=current.getContent();
 		return list;
 	}
+	
+	//returns the size of the list
 	public int getSize(){
 		return size;
 	}
 	
+	//inserts node "insert" before node "node"
 	public void insertBefore(Node insert, Node node){
 		if (node==origin)
 			origin=insert;
@@ -83,7 +94,10 @@ public class LinkedList {
 		}
 		node.setPrevious(insert);
 		insert.setNext(node);
+		size++;
 	}
+	
+	//inserts node "insert" after node "node"
 	public void insertAfter(Node insert, Node node){
 		if (end==node)
 			end=insert;
@@ -91,8 +105,10 @@ public class LinkedList {
 			insert.setNext(node.getNext());
 		node.setNext(insert);
 		insert.setPrevious(node);
+		size++;
 	}
 	
+	//inserts node into list in alphabetical order.
 	public void insertAlphabetically(Node node){
 		if (origin==null){
 			origin=node;
@@ -106,13 +122,22 @@ public class LinkedList {
 		else{
 			Node current=origin;
 			while (current!=null){
-				if (node.getContent().compareTo(current.getContent())>0)
-					current=current.getNext();
+				if (node.getContent().compareTo(current.getContent())>0){
+					if (current==end){
+						addToEnd(node);
+						break;
+					}
+					else
+						current=current.getNext();
+				}
 				else {
 					insertBefore(node, current);
 					break;
 				}
 			}
 		}
+		//does not need a size increment of size because it invokes the insertBefore and insertAfter 
+		//methods to perform the actual insertion which both contain a size increment.
 	}
+
 }
