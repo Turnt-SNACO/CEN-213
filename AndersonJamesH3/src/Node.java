@@ -1,9 +1,9 @@
+
 public class Node {
 	private Node previous,next;
-	private int ID;
 	private String content;
-	public Node(int ID, String content){
-		this.ID=ID;		this.content=content;
+	public Node(String content){
+		this.content=content;
 		this.next=null; this.previous=null;
 	}
 	public Node(){}
@@ -24,11 +24,5 @@ public class Node {
 	}
 	public void setContent(String content) {
 		this.content = content;
-	}
-	public int getID() {
-		return ID;
-	}
-	public void setID(int iD) {
-		ID = iD;
 	}
 }

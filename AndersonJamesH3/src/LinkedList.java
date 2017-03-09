@@ -1,12 +1,14 @@
 
 public class LinkedList {
 	private Node origin=null;
+	private Node end=null;
 	private int size=0;
 	public LinkedList(){}
 	
-	public void add(Node node) {
+	public void addToEnd(Node node) {
     	if (origin==null){  
     		origin=node;
+    		end=node;
     	}else{
     		Node current = origin;
     		while(current.getNext()!=null){
@@ -14,6 +16,7 @@ public class LinkedList {
     		}
     		current.setNext(node);
     		node.setPrevious(current);
+    		end=node;
     	}
     	size++;
     }
@@ -25,11 +28,10 @@ public class LinkedList {
 			Node current=node;
 			//Goes through the list and shifts ID values back one to accommodate for removed node
 			while(current.getNext()!=null){
-				current.setID(current.getID()-1);
+
     			current=current.getNext();
     		}
 			//makes sure the last link is shifted back as well
-			current.setID(current.getID()-1);
 		}
 	}
 	public Node findNode(Node node){
@@ -46,6 +48,7 @@ public class LinkedList {
     }
 	public void deleteList(){
 		origin=null;
+		end=null;
 	}
 	public String printForward(){
 		String list="";
@@ -59,78 +62,57 @@ public class LinkedList {
 	}
 	public String printReverse(){
 		String list="";
-		String[] listArray=new String[size];
-		Node current=origin;
-		int x=0;
-		while(current.getNext()!=null){
-			listArray[x]=current.getContent();
-    		current=current.getNext();
-    		x++;
+		Node current=end;
+		while(current.getPrevious()!=null){
+			list+=current.getContent()+", ";
+    		current=current.getPrevious();
     	}
-		listArray[x]=current.getContent();
-		for (int y=size-1;y>0;y--){
-			list+=listArray[y]+", ";
-		}
-		list+=listArray[0];
+		list+=current.getContent();
 		return list;
 	}
 	public int getSize(){
 		return size;
 	}
-	//TODO: FIX or REDO
+	
+	public void insertBefore(Node insert, Node node){
+		if (node==origin)
+			origin=insert;
+		else{
+			insert.setPrevious(node.getPrevious());
+			node.getPrevious().setNext(insert);
+		}
+		node.setPrevious(insert);
+		insert.setNext(node);
+	}
+	public void insertAfter(Node insert, Node node){
+		if (end==node)
+			end=insert;
+		else
+			insert.setNext(node.getNext());
+		node.setNext(insert);
+		insert.setPrevious(node);
+	}
+	
 	public void insertAlphabetically(Node node){
-		
-		/*
 		if (origin==null){
 			origin=node;
-		}else if (size>0){
-			Node current = origin;
-    		while(current.getNext()!=null){
-    			char[] thisWord = current.getContent().toCharArray();
-    			char[] nextWord = current.getNext().getContent().toCharArray();
-    			int x=0;
-    			while(true){
-	    			if (thisWord[x]==nextWord[x]){
-	    				x++;
-	    			}else if(thisWord[x]>nextWord[x]){
-	    				current=current.getNext();
-	    				break;
-	    			}else {
-	    				current=current.getPrevious();
-	    				break;
-	    			}
-    			}
-    		}
-    		node.setPrevious(current);
-			node.setNext(current.getNext());
-			node.setPrevious(origin);
-			node.setNext(null);
-			
-			current.setNext(node);
-			
-			
-		}else{
-			char[] thisWord = node.getContent().toCharArray();
-			char[] inList = origin.getContent().toCharArray();
-			int x=0;
-			while(true){
-    			if (thisWord[x]==inList[x]){
-    				x++;
-    			}else if(thisWord[x]>inList[x]){
-    				node.setPrevious(origin);
-    				node.setNext(null);
-    				origin.setNext(node);
-    				break;
-    			}else {
-    				Node temp=origin;
-    				origin=node;
-    				origin.setNext(temp);
-    				break;
-    			}
-			}
-			
+			end=node;
+		} else if (origin==end){
+			if (node.getContent().compareTo(origin.getContent())>=0)
+				insertAfter(node,origin);
+			else
+				insertBefore(node,origin);
 		}
-		size++;
-		*/
+		else{
+			Node current=origin;
+			while (current!=null){
+				if (node.getContent().compareTo(current.getContent())>0)
+					current=current.getNext();
+				else {
+					insertBefore(node, current);
+					break;
+				}
+			}
+		}
 	}
 }
